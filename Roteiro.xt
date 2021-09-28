@@ -1,0 +1,42 @@
+Instalar NodeJS
+
+Instalar o Expo 
+
+Iniciar Projeto com expo 
+  expo init meuapp
+
+Instalar Styled Components 
+  expo install styled-components
+
+Instalar o React Navigation
+  expo install @react-navigation/native
+
+  Instalar dependências do React navigation
+    expo install react-native-screens react-native-safe-area-context
+
+  Instalar Navegação em pilha(Stack)
+    expo install @react-navigation/native-stack
+
+  Instalar o Drawer navigation
+    expo install @react-navigation/drawer
+
+    Instalar dependencias do Drawer
+      expo install react-native-gesture-handler react-native-reanimated
+
+Criar os folders para as Páginas
+  Home>index.js + Movies>index.js
+
+Criar o folder Routes
+  Index.js + StackRoutes.js
+
+Configurar o Drawer.Navigator>index.js
+
+Na primeira linha do App.js
+  import 'react-native-gesture-handler';
+
+  antes da Função App
+    import { NavigationContainer } from '@react-navigation/native';
+
+importar StatusBar no App.js
+  import { StatusBar } from 'react-native';
+

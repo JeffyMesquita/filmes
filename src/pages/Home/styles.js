@@ -27,8 +27,28 @@ export const Input = styled.TextInput`
 
 export const SearchButton = styled.TouchableOpacity`
   width: 15%;
-  height:50;
+  height:50px;
   align-items: center;
   justify-content: center;
+`;
+
+export const Title = styled.Text`
+  padding-top: 20px;
+  padding-bottom: 8px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFFFFF;
+  padding-left: 14px;
+  padding-right: 14px;
+`;
+
+export const BannerButton = styled.TouchableOpacity`
+
+`;
+
+export const Banner = styled.Image`
+  height: 150px;
+  border-radius: 6px;
+  margin: 0 14px;
 `;
 

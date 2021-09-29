@@ -32,4 +32,3 @@ export const SearchButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-//teste

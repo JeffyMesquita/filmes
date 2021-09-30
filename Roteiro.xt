@@ -40,3 +40,5 @@ Na primeira linha do App.js
 importar StatusBar no App.js
   import { StatusBar } from 'react-native';
 
+Axios pra trabalhar com requisições
+  expo install axios

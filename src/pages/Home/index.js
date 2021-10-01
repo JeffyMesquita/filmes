@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, ActivityIndicator } from "react-native";
 
 import {
   Container,
@@ -18,15 +18,18 @@ import SliderItem from "../../components/SliderItem";
 import { Feather } from "@expo/vector-icons";
 
 import api, { key } from "../../services/api";
-import { getListMovies } from "../../utils/movie";
+import { getListMovies, randomBanner } from "../../utils/movie";
 
 function Home() {
   const [nowMovies, setNowMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [topMovies, setTopMovies] = useState([]);
+  const [bannerMovie, setBannerMovie] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isActive;
+    let isActive = true;
+    const ac = new AbortController();
 
     async function getMovies() {
       const [nowData, popularData, topData] = await Promise.all([
@@ -53,20 +56,42 @@ function Home() {
         }),
       ]);
 
-      const nowList = await getListMovies(10, nowData.data.results);
-      const popularList = await getListMovies(5, popularData.data.results);
-      const topList = await getListMovies(5, topData.data.results);
+      if (isActive) {
+        const nowList = getListMovies(10, nowData.data.results);
+        const popularList = getListMovies(5, popularData.data.results);
+        const topList = getListMovies(5, topData.data.results);
 
-      setNowMovies(nowList);
-      setPopularMovies(popularList);
-      setTopMovies(topList);
+        setBannerMovie(
+          nowData.data.results[randomBanner(nowData.data.results)]
+        );
 
-      console.log(nowData);
-      console.log(nowList);
+        setNowMovies(nowList);
+        setPopularMovies(popularList);
+        setTopMovies(topList);
+        setLoading(false);
+        console.log(nowData);
+        console.log(popularData);
+        console.log(topData);
+        console.log(bannerMovie);
+        console.log(nowList);
+      }
     }
 
     getMovies();
+
+    return () => {
+      isActive = false;
+      ac.abort();
+    };
   }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <ActivityIndicator size="large" color="#FFFFFF" />
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -86,7 +111,7 @@ function Home() {
           <Banner
             resizeMethod="resize"
             source={{
-              uri: "https://ingresso-a.akamaihd.net/prd/img/movie/shang-chi-e-a-lenda-dos-dez-aneis/99cd42d9-5d27-4a96-aa28-c5bf4c9b6fb5.jpg",
+              uri: `https://imagee.tmdb.org/t/p/original${bannerMovie.poster_path}`,
             }}
           />
         </BannerButton>

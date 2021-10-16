@@ -20,12 +20,16 @@ import { Feather } from "@expo/vector-icons";
 import api, { key } from "../../services/api";
 import { getListMovies, randomBanner } from "../../utils/movie";
 
+import { useNavigation } from '@react-navigation/native'; 
+
 function Home() {
   const [nowMovies, setNowMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [topMovies, setTopMovies] = useState([]);
   const [bannerMovie, setBannerMovie] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     let isActive = true;
@@ -68,12 +72,7 @@ function Home() {
         setNowMovies(nowList);
         setPopularMovies(popularList);
         setTopMovies(topList);
-        setLoading(false);
-        console.log(nowData);
-        console.log(popularData);
-        console.log(topData);
-        console.log(bannerMovie);
-        console.log(nowList);
+        setLoading(false);        
       }
     }
 
@@ -84,6 +83,10 @@ function Home() {
       ac.abort();
     };
   }, []);
+
+  function navigationDetailPage(item) {
+    navigation.navigate('Detail', {id: tem.id});
+  }
 
   if (loading) {
     return (
@@ -107,12 +110,11 @@ function Home() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Title>Em Cartaz</Title>
 
-        <BannerButton activeOpacity={0.8} onPress={() => alert("Teste")}>
+        <BannerButton activeOpacity={0.8} onPress={() => navigationDetailPage(bannerMovie)}>
           <Banner
             resizeMethod="resize"
-            source={{
-              uri: `https://imagee.tmdb.org/t/p/original${bannerMovie.poster_path}`,
-            }}
+            source={{ uri: `https://image.tmdb.org/t/p/original/${bannerMovie.poster_path}`}}
+            
           />
         </BannerButton>
 
@@ -120,7 +122,7 @@ function Home() {
           horizontal={true}
           showHorizontalScrollIndicator={false}
           data={nowMovies}
-          renderItem={({ item }) => <SliderItem data={item} />}
+          renderItem={({ item }) => <SliderItem data={item} navigatePage={() => navigationDetailPage(item)} />}
           keyExtractor={(item) => String(item.id)}
         />
 
@@ -130,7 +132,7 @@ function Home() {
           horizontal={true}
           showHorizontalScrollIndicator={false}
           data={popularMovies}
-          renderItem={({ item }) => <SliderItem data={item} />}
+          renderItem={({ item }) => <SliderItem data={item} navigatePage={() => navigationDetailPage(item)} />}
           keyExtractor={(item) => String(item.id)}
         />
 
@@ -140,7 +142,7 @@ function Home() {
           horizontal={true}
           showHorizontalScrollIndicator={false}
           data={topMovies}
-          renderItem={({ item }) => <SliderItem data={item} />}
+          renderItem={({ item }) => <SliderItem data={item} navigatePage={() => navigationDetailPage(item)} />}
           keyExtractor={(item) => String(item.id)}
         />
       </ScrollView>

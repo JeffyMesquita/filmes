@@ -17,7 +17,10 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api, { key } from '../../services/api';
 
-export default function Datail(){
+import Stars from 'react-native-stars';
+import Genres from '../../components/Genres'
+
+export default function Detail(){
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -60,22 +63,78 @@ export default function Datail(){
     <Container>
       <Header>
         <HeaderButton
+          activeOpacity={0.7}
           onPress={()=> navigation.goBack()}
         >
           <Feather 
             name="arrow-left"
             size={28}
-            color="#FFF"
+            color="#FFFFFF"
           />
         </HeaderButton>
         <HeaderButton>          
             <Ionicons 
             name="bookmark"
             size={28}
-            color="#FFF"
+            color="#FFFFFF"
           />         
         </HeaderButton>
-      </Header>     
+      </Header> 
+
+      <Banner 
+        resizeMethod="resize"
+        source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}`}}
+      />    
+
+      <ButtonLink>
+        <Feather 
+          name="link"
+          size={24}
+          color="#FFFFFF"
+        />
+      </ButtonLink>
+
+      <Title numberOfLines={2} >{movie.title}</Title>
+
+      <ContentArea>
+        <Stars 
+          default={movie.vote_average}
+          count={10}
+          half={true}
+          starSize={20}
+          fullStar={ 
+            <Ionicons 
+              name="md-star"
+              size={24}
+              color="#E7A74A"
+            />
+          }
+          emptyStar={ 
+            <Ionicons 
+              name="md-star-outline"
+              size={24}
+              color="#E7A74A"
+            />
+          }
+          halfStar={ 
+            <Ionicons 
+              name="md-star-half"
+              size={24}
+              color="#E7A74A"
+            />
+          }
+          disable={true}
+        />
+        <Rate>{movie.vote_average}/10</Rate>
+      </ContentArea>
+
+      <ListGenres 
+        data={movie?.genres}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <Genres data={item} />}
+      />
     </Container>
   )
 };

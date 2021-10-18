@@ -17,7 +17,7 @@ function StackRoutes(){
         }}        
       />
 
-<Stack.Screen 
+      <Stack.Screen 
         name="Detail" 
         component={Detail} 
         options={{

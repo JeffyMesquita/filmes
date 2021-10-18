@@ -85,8 +85,8 @@ function Home() {
   }, []);
 
   function navigationDetailPage(item) {
-    navigation.navigate('Detail', {id: tem.id});
-  }
+    navigation.navigate('Detail', {id: item.id});
+  };
 
   if (loading) {
     return (
@@ -94,7 +94,7 @@ function Home() {
         <ActivityIndicator size="large" color="#FFFFFF" />
       </Container>
     );
-  }
+  };
 
   return (
     <Container>

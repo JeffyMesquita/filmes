@@ -46,11 +46,11 @@ export const ButtonLink = styled.TouchableOpacity`
 `;
 
 export const Title = styled.Text`
-  color: #FFF;
+  color: #FFFFFF;
   font-size: 22px;
   font-weight: bold;
   padding: 8px 14px;
-  margin-top: 12px;
+  margin-top: 16px;
   /* text-align: center; */
 `;
 
@@ -64,7 +64,7 @@ export const ContentArea = styled.View`
 export const Rate = styled.Text`
   font-size: 18px;
   font-weight: bold;
-  color: #FFF;
+  color: #FFFFFF;
 `;
 
 export const ListGenres = styled.FlatList`
@@ -78,6 +78,6 @@ export const Description = styled.Text`
   padding-left: 14px;
   padding-right: 14px;
   padding-bottom: 30px;
-  color: #FFF;
+  color: #FFFFFF;
   line-height: 20px;
 `;

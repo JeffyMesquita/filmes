@@ -18,7 +18,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import api, { key } from '../../services/api';
 
 import Stars from 'react-native-stars';
-import Genres from '../../components/Genres'
+import Genres from '../../components/Genres';
+import ModalLink from '../../components/ModalLink';
 
 export default function Detail(){
   const navigation = useNavigation();
@@ -86,7 +87,7 @@ export default function Detail(){
         source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}`}}
       />    
 
-      <ButtonLink>
+      <ButtonLink onPress={() => setOpenLink(true)}>
         <Feather 
           name="link"
           size={24}
@@ -135,6 +136,21 @@ export default function Detail(){
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <Genres data={item} />}
       />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+      >
+        <Title>Descrição</Title>
+        <Description>{movie.overview}</Description>
+      </ScrollView>
+
+      <Modal
+        animationType='slide'
+        // transparent={true}
+        visible={openLink} 
+      > 
+        <ModalLink/>
+      </Modal>
     </Container>
   )
 };

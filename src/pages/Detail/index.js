@@ -146,10 +146,14 @@ export default function Detail(){
 
       <Modal
         animationType='slide'
-        // transparent={true}
+        transparent={true}
         visible={openLink} 
       > 
-        <ModalLink/>
+        <ModalLink
+          link={movie?.homepage}
+          title={movie?.title}
+          closeModal={() => setOpenLink(false)}
+        />
       </Modal>
     </Container>
   )

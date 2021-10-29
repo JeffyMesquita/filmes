@@ -21,7 +21,7 @@ import Stars from 'react-native-stars';
 import Genres from '../../components/Genres';
 import ModalLink from '../../components/ModalLink';
 
-import { saveMovie, hasMovie } from '../../utils/storage';
+import { saveMovie, hasMovie, deleteMovie } from '../../utils/storage';
 
 export default function Detail(){
   const navigation = useNavigation();
@@ -62,9 +62,16 @@ export default function Detail(){
     }
   },[]);
 
-  async function favoriteMovie(movie) {
-    await saveMovie('@favoritemovie', movie);
-    alert('Este filme foi salvo na sua lista :D')
+  async function handleFavoriteMovie(movie) {
+    if(favoritedMovie){
+      await deleteMovie(movie.id);
+      setFavoritedMovie(false);
+      alert('Filme removido da sua lista')
+    } else {
+      await saveMovie('@favoritemovie', movie);
+      setFavoritedMovie(true);
+      alert('Este filme foi salvo na sua lista :D')
+    }
   }
 
   return(
@@ -81,7 +88,7 @@ export default function Detail(){
           />
         </HeaderButton>
 
-        <HeaderButton onPress={ () => favoriteMovie(movie)}>          
+        <HeaderButton onPress={ () => handleFavoriteMovie(movie)}>          
           { favoritedMovie ? (
             <Ionicons 
               name="bookmark"

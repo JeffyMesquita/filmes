@@ -45,7 +45,7 @@ export default function Detail() {
       } = movie;
       const genres = movie.genres.map((genre) => genre.name);
       const result = await Share.share({
-        message: `Title: ${title} \nDescrição: ${overview} \nNota: ${vote_average}/10 \nData: ${release_date} 
+        message: `Título: ${title} \nDescrição: ${overview} \nNota: ${vote_average}/10 \nData: ${release_date} 
           \nGenero: ${genres} \nSite do filme: ${homepage} \nImagem: https://image.tmdb.org/t/p/original/${poster_path}`,
       });
       if (result.action === Sharing.sharedAction) {
